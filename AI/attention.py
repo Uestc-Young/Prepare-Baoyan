@@ -8,6 +8,9 @@ class multi_head_attention(nn.Module):
     '''
     Re-Implementation of Multi-Head Attention
 
+    Math Formulation:
+    Attention(Q, K, V) = softmax(Q*K^T / sqrt(d_k))*V 
+
     Args:
         d_model: int - The size of the input dimension
         n_heads: int - The number of heads to split the input 
