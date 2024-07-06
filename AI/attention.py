@@ -27,7 +27,7 @@ class multi_head_attention(nn.Module):
         self.softmax = nn.Softmax(dim=-1)
 
 
-    def forward(self, q: torch.tensor, k: torch.tensor, v: torch.tensor):
+    def forward(self, q: torch.Tensor, k: torch.Tensor, v: torch.Tensor):
         batchsize, seq_len, dim = q.shape
         n_d = self.d_model // self.n_heads
 
