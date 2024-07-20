@@ -19,3 +19,4 @@
 - Sigmoid
 - ReLU
 - LeakyReLU
+- tanh
