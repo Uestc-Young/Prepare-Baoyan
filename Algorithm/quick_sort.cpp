@@ -12,7 +12,9 @@
 */
 #include <iostream>
 
-using namespace std;
+const int N = 1e6 + 10;
+int n = 0;
+int q[N];
 
 void swap(int *a, int *b)
 {
@@ -25,7 +27,7 @@ void quick_sort(int q[], int l, int r)
 {
     if (l >= r)
         return;
-    int x = q[l];
+    int x = q[(l + r) >> 1];
     int i = l;
     int j = r;
     while (i < j)
@@ -40,11 +42,11 @@ void quick_sort(int q[], int l, int r)
         }
         if (i < j)
             swap(&q[i], &q[j]);
-        for (int i = 0; i < 5; i++)
-        {
-            printf("%d ", q[i]);
-        }
-        printf("\n");
+        // for (int i = 0; i < 5; i++)
+        // {
+        //     printf("%d ", q[i]);
+        // }
+        // printf("\n");
     }
 
     quick_sort(q, l, j);
@@ -55,16 +57,14 @@ void quick_sort(int q[], int l, int r)
 
 int main()
 {
-    int array[5] = {2, 4, 5, 6, 1};
-    for (int i = 0; i < 5; i++)
+    scanf("%d", &n);
+    for (int i = 0; i < n; i++)
     {
-        printf("%d ", array[i]);
+        scanf("%d", &q[i]);
     }
-    printf("\n");
-    quick_sort(array, 0, 4);
-    for (int i = 0; i < 5; i++)
+    quick_sort(q, 0, n - 1);
+    for (int i = 0; i < n; i++)
     {
-        printf("%d ", array[i]);
+        printf("%d ", q[i]);
     }
-    printf("\n");
 }
