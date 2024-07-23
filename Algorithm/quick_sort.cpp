@@ -42,11 +42,6 @@ void quick_sort(int q[], int l, int r)
         }
         if (i < j)
             swap(&q[i], &q[j]);
-        // for (int i = 0; i < 5; i++)
-        // {
-        //     printf("%d ", q[i]);
-        // }
-        // printf("\n");
     }
 
     quick_sort(q, l, j);
