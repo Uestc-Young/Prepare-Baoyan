@@ -4,6 +4,29 @@ from torch import nn
 import math
 import torch.functional as F
 
+class Scale_Dot_Attention(nn.Module):
+    def __init__(self, d_model: int):
+        super().__init__()
+        self.d_model = d_model
+
+        self.W_Q = nn.Linear(self.d_model, self.d_model)
+        self.W_K = nn.Linear(self.d_model, self.d_model)
+        self.W_V = nn.Linear(self.d_model, self.d_model)
+    
+    def forward(self, x):
+
+        B, seq_len, dim = x.shape
+
+        q = self.W_Q(x) # (B, L, D)
+        k = self.W_K(x) # (B, L, D)
+        v = self.W_V(x) # (B, L, D)
+
+        attention_score = torch.matmul(q, k.permute(0, 2, 1)) / math.sqrt(dim)
+        attention_score = torch.softmax(attention_score, dim = -1)
+
+        return torch.matmul(attention_score, v)
+
+
 class multi_head_attention(nn.Module):
     '''
     Re-Implementation of Multi-Head Attention
@@ -54,8 +77,9 @@ class multi_head_attention(nn.Module):
 
 # Test
 X = torch.randn(256, 128, 64)
-attention = multi_head_attention(64, 8)
+# attention = multi_head_attention(64, 8)
+attention = Scale_Dot_Attention(64)
 
 print("Input shape:", X.shape)
-X_out = attention(X, X, X)
+X_out = attention(X)
 print("Output shape:", X_out.shape)
